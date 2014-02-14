@@ -12,6 +12,8 @@ socket.on('run', function(js, fn){
     // for JSON serialization purposes
     var err = {};
     for (var i in e) err[i] = e[i];
+    err.message = e.message;
+    err.stack = e.stack;
     // String() is needed here apparently for IE6-8 which throw an error deep in
     // socket.io that is hard to debug through SauceLabs remotely. For some
     // reason, toString() here bypasses the bug...
