@@ -14,6 +14,8 @@ $ export SAUCE_ACCESS_KEY="your key"
 $ repl ie6
 ```
 
+Sign up for a free OSS account on [SauceLabs](http://saucelabs.com).
+
 ## How it works
 
   `browser-repl` is built on top of the `wd` module, which is an
