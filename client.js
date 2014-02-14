@@ -8,13 +8,18 @@ socket.on('run', function(js, fn){
     var rtn = (function() { return eval.apply(this, arguments); })(js);
     fn(null, inspect(rtn, { colors: true }));
   } catch(e) {
-    e.stack = e.stack;
-    e.message = e.message;
-    // String() is needed here apparently for IE6-8 which throw an error deep in
-    // socket.io that is hard to debug through SauceLabs remotely. For some
-    // reason, toString() here bypasses the bug...
-    e.name = String(e.name);
-    fn(e);
+    // we have to create a "flattened" version of the `e` Error object,
+    // for JSON serialization purposes
+    var err = {
+      stack: e.stack,
+      message: e.message,
+      // String() is needed here apparently for IE6-8 which throw an error deep in
+      // socket.io that is hard to debug through SauceLabs remotely. For some
+      // reason, toString() here bypasses the bug...
+      name: String(e.name)
+    };
+    for (var i in e) err[i] = e[i];
+    fn(err);
   }
 });
 
