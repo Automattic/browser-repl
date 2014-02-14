@@ -5,7 +5,6 @@ socket.on('run', function(js, fn){
   try {
     var rtn = eval(js);
     fn(null, util.inspect(rtn, {
-      color: true,
       colors: true
     }));
   } catch(e) {
