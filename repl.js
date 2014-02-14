@@ -100,7 +100,7 @@ function start(){
     console.log('global error');
   });
   var cmd = repl.start({
-    prompt: ' \033[90mie › \033[39m',
+    prompt: ' › ',
     eval: function(cmd, ctx, file, fn){
       socket.emit('run', cmd, function(err, data){
         fn(err || data);
