@@ -103,6 +103,12 @@ function start(){
     prompt: ' \033[90mie › \033[39m',
     eval: function(cmd, ctx, file, fn){
       socket.emit('run', cmd, function(err, data){
+        // We're intentionally passing the successful "data" response as the
+        // `err` argument to the eval function. This is because the `data` is
+        // actually a properly formatted String output from `util.inspect()` run
+        // on the client-side, with proper coloring, etc. coincidentally, if we
+        // pass that as the `err` argument then node's `repl` module will simply
+        // console.log() the formatted string for us, which is what we want
         fn(err || data);
       });
     }
