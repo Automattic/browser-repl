@@ -5,6 +5,12 @@ if (!process.stdout.isTTY) {
   process.exit(1);
 }
 
+if (!process.env.SAUCE_ACCESS_KEY || !process.env.SAUCE_USERNAME) {
+  console.error('Please configure $SAUCE_ACCESS_KEY and $SAUCE_USERNAME in your shell');
+  console.error('Sign up at saucelabs.com');
+  process.exit(1);
+}
+
 var wd = require('wd');
 var env = process.env;
 var repl = require('repl');
@@ -27,7 +33,7 @@ if (2 == argv._.length) platform = argv._.pop();
 var str = argv._.join('');
 var parts = str.match(/([a-z]+) *(\d+)?/);
 if (!parts) return usage();
-var browser = browsers[str || parts[1]];
+var browser = browsers[str] || browsers[parts[1]];
 if (!browser) return usage();
 var version = parts[2];
 platform = platforms[platform || browser.platform];
@@ -60,8 +66,8 @@ function setup(){
 }
 
 function spawn(url){
-  var user = env.SAUCE_USER;
-  var key = env.SAUCE_KEY;
+  var user = env.SAUCE_USERNAME;
+  var key = env.SAUCE_ACCESS_KEY;
   var vm = wd.remote('ondemand.saucelabs.com', 80, user, key);
   var opts = { browserName: browser };
   if (version) opts.version = version;
@@ -99,8 +105,9 @@ function start(){
   socket.on('global err', function(){
     console.log('global error');
   });
+  console.log('… ready!');
   var cmd = repl.start({
-    prompt: ' › ',
+    prompt: str + ' › ',
     eval: function(cmd, ctx, file, fn){
       socket.emit('run', cmd, function(err, data){
         // We're intentionally passing the successful "data" response as the

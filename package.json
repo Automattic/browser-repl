@@ -7,8 +7,10 @@
     "wd": "0.2.10",
     "minimist": "0.0.7",
     "localtunnel": "0.2.2",
-    "socket.io": "LearnBoost/socket.io#d65ec8d",
-    "express": "3.4.8"
+    "socket.io": "LearnBoost/socket.io#09cfb17",
+    "socket.io-client": "LearnBoost/socket.io-client#dc2afa4",
+    "express": "3.4.8",
+    "util-inspect": "0.1.6"
   },
   "bin": {
     "repl": "./repl.js"
@@ -17,6 +19,6 @@
     "prepublish": "make build"
   },
   "devDependencies": {
-    "browserify": "~3.29.0"
+    "browserify": "3.29.0"
   }
 }
