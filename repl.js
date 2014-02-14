@@ -110,6 +110,27 @@ function start(){
     prompt: str + ' › ',
     eval: function(cmd, ctx, file, fn){
       socket.emit('run', cmd, function(err, data){
+        if (err) {
+          // we have to create a synthetic SyntaxError if one occurred in the
+          // browser because the REPL special-cases that error
+          // to display the "more" prompt
+          if (
+            // firefox syntax errors messages
+            ('SyntaxError' == err.name && null == err.message) ||
+            // old IE doens't even have a "name" property :\
+            ('Syntax error' == err.message || /^expected /i.test(err.message))
+          ) {
+            err = new SyntaxError('Unexpected end of input');
+          } else {
+            // any other `err` needs to be converted to an `Error` object
+            // with the given `err`s properties copied over
+            var e = new Error();
+            for (var i in err) {
+              e[i] = err[i];
+            }
+            err = e;
+          }
+        }
         // We're intentionally passing the successful "data" response as the
         // `err` argument to the eval function. This is because the `data` is
         // actually a properly formatted String output from `util.inspect()` run

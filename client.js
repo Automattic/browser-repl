@@ -7,7 +7,13 @@ socket.on('run', function(js, fn){
     var rtn = eval(js);
     fn(null, inspect(rtn, { colors: true }));
   } catch(e) {
-    fn(e.stack || e.message);
+    e.stack = e.stack;
+    e.message = e.message;
+    // String() is needed here apparently for IE6-8 which throw an error deep in
+    // socket.io that is hard to debug through SauceLabs remotely. For some
+    // reason, toString() here bypasses the bug...
+    e.name = String(e.name);
+    fn(e);
   }
 });
 
