@@ -140,6 +140,15 @@ function start(){
             for (var i in err) {
               e[i] = err[i];
             }
+
+            // firefox and opera, in particular, doesn't include the "name"
+            // or "message" in the stack trace
+            var prefix = e.name;
+            if (e.message) prefix += ': ' + e.message;
+            if (e.stack.substring(0, prefix.length) != prefix) {
+              e.stack = prefix + '\n' + e.stack;
+            }
+
             err = e;
           }
         }
