@@ -110,6 +110,48 @@ function start(){
     prompt: str + ' › ',
     eval: function(cmd, ctx, file, fn){
       socket.emit('run', cmd, function(err, data){
+        if (err) {
+          // we have to create a synthetic SyntaxError if one occurred in the
+          // browser because the REPL special-cases that error
+          // to display the "more" prompt
+          if (
+            // most browsers set the `name` to "SyntaxError"
+            ('SyntaxError' == err.name &&
+              // firefox
+              ('syntax error' == err.message ||
+               'function statement requires a name' == err.message ||
+              // iOS
+               'Parse error' == err.message ||
+              // opera
+               /syntax error$/.test(err.message) ||
+               /expected (.*), got (.*)$/.test(err.message) ||
+              // safari
+               /^Unexpected token (.*)$/.test(err.message)
+              )
+            ) ||
+            // old IE doens't even have a "name" property :\
+            ('Syntax error' == err.message || /^expected /i.test(err.message))
+          ) {
+            err = new SyntaxError('Unexpected end of input');
+          } else {
+            // any other `err` needs to be converted to an `Error` object
+            // with the given `err`s properties copied over
+            var e = new Error();
+            for (var i in err) {
+              e[i] = err[i];
+            }
+
+            // firefox and opera, in particular, doesn't include the "name"
+            // or "message" in the stack trace
+            var prefix = e.name;
+            if (e.message) prefix += ': ' + e.message;
+            if (e.stack.substring(0, prefix.length) != prefix) {
+              e.stack = prefix + '\n' + e.stack;
+            }
+
+            err = e;
+          }
+        }
         // We're intentionally passing the successful "data" response as the
         // `err` argument to the eval function. This is because the `data` is
         // actually a properly formatted String output from `util.inspect()` run

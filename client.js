@@ -4,10 +4,19 @@ var inspect = require('util-inspect');
 var socket = io();
 socket.on('run', function(js, fn){
   try {
-    var rtn = eval(js);
+    // eval in the global scope (http://stackoverflow.com/a/5776496/376773)
+    var rtn = (function() { return eval.apply(this, arguments); })(js);
     fn(null, inspect(rtn, { colors: true }));
   } catch(e) {
-    fn(e.stack || e.message);
+    // we have to create a "flattened" version of the `e` Error object,
+    // for JSON serialization purposes
+    var err = {};
+    for (var i in e) err[i] = e[i];
+    // String() is needed here apparently for IE6-8 which throw an error deep in
+    // socket.io that is hard to debug through SauceLabs remotely. For some
+    // reason, toString() here bypasses the bug...
+    err.name = String(e.name);
+    fn(err);
   }
 });
 
