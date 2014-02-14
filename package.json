@@ -17,6 +17,8 @@
     "prepublish": "make build"
   },
   "devDependencies": {
-    "browserify": "~3.29.0"
+    "browserify": "~3.29.0",
+    "es5-shim": "~2.3.0",
+    "json3": "~3.3.0"
   }
 }
