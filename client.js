@@ -4,7 +4,8 @@ var inspect = require('util-inspect');
 var socket = io();
 socket.on('run', function(js, fn){
   try {
-    var rtn = eval(js);
+    // eval in the global scope (http://stackoverflow.com/a/5776496/376773)
+    var rtn = (function() { return eval.apply(this, arguments); })(js);
     fn(null, inspect(rtn, { colors: true }));
   } catch(e) {
     fn(e.stack || e.message);
