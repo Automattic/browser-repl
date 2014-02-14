@@ -12,5 +12,11 @@
   },
   "bin": {
     "repl": "./repl.js"
+  },
+  "scripts": {
+    "prepublish": "make build"
+  },
+  "devDependencies": {
+    "browserify": "~3.29.0"
   }
 }
