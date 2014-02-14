@@ -5,6 +5,7 @@
     "ie7": { "name": "internet explorer", "platform": "winxp" },
     "ie8": { "name": "internet explorer", "platform": "win7" },
     "ie9": { "name": "internet explorer", "platform": "win7" },
+    "ie10": { "name": "internet explorer", "platform": "win8" },
     "opera": { "name": "opera", "platform": "win7" },
     "safari": { "name": "safari", "platform": "mac10.9" },
     "safari5": { "name": "safari", "platform": "mac10.6" },
