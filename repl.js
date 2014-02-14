@@ -115,8 +115,20 @@ function start(){
           // browser because the REPL special-cases that error
           // to display the "more" prompt
           if (
-            // firefox syntax errors messages
-            ('SyntaxError' == err.name && null == err.message) ||
+            // most browsers set the `name` to "SyntaxError"
+            ('SyntaxError' == err.name &&
+              // firefox
+              ('syntax error' == err.message ||
+               'function statement requires a name' == err.message ||
+              // iOS
+               'Parse error' == err.message ||
+              // opera
+               /syntax error$/.test(err.message) ||
+               /expected (.*), got (.*)$/.test(err.message) ||
+              // safari
+               /^Unexpected token (.*)$/.test(err.message)
+              )
+            ) ||
             // old IE doens't even have a "name" property :\
             ('Syntax error' == err.message || /^expected /i.test(err.message))
           ) {
