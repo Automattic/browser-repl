@@ -42,7 +42,14 @@ browser = browser.name;
 // app
 var app = express();
 var srv = http(app);
+app.get('/', function(req, res){
+  res.send([
+    '<script>options = ' + JSON.stringify(argv) + ';</script>',
+    '<script src="/build.js"></script>'
+  ].join('\n'));
+});
 app.use(express.static(join(__dirname, 'static')));
+
 var io = sio(srv);
 var tunnel, socket;
 
@@ -103,6 +110,10 @@ function usage(){
   console.error('');
   console.error('usage: repl <browser>[version] [platform]');
   console.error('');
+  console.error('options:');
+  console.error(' -h: this message');
+  console.error(' -k: no remote `console` override');
+  console.error('');
   console.error('examples:');
   console.error(' $ repl ie6     # ie 6');
   console.error(' $ repl chrome  # chrome latest');
@@ -116,9 +127,6 @@ function usage(){
 }
 
 function start(){
-  socket.on('global err', function(){
-    console.log('global error');
-  });
   console.log('… ready!');
   var cmd = repl.start({
     prompt: str + ' › ',
@@ -176,6 +184,15 @@ function start(){
       });
     }
   });
+
+  socket.on('global err', function(err){
+    console.log('Global error: ', err);
+  });
+
+  socket.on('console', function(args){
+    console.log.apply(console, args);
+  });
+
   cmd.on('exit', function(){
     process.exit(0);
   });

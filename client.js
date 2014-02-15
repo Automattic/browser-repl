@@ -1,14 +1,25 @@
 var io = require('socket.io-client');
+var toArray = require('to-array');
 var inspect = require('util-inspect');
-
 var socket = io();
+
+// make `console` remote
+if (!global.options.k) {
+  global.console = global.console || {};
+  ['log', 'info', 'warn', 'error', 'debug'].forEach(function(m){
+    console[m] = function(){
+      socket.emit('console', toArray(arguments).map(inspect));
+    };
+  });
+}
+
 socket.on('run', function(js, fn){
   try {
     // eval in the global scope (http://stackoverflow.com/a/5776496/376773)
     var rtn = (function() { return eval.apply(this, arguments); })(js);
 
     // save the previous value as `_`. matches node's main REPL behavior
-    _ = rtn;
+    global._ = rtn;
 
     fn(null, inspect(rtn, { colors: true }));
   } catch(e) {

@@ -10,7 +10,8 @@
     "socket.io": "LearnBoost/socket.io#09cfb17",
     "socket.io-client": "LearnBoost/socket.io-client#dc2afa4",
     "express": "3.4.8",
-    "util-inspect": "0.1.8"
+    "util-inspect": "0.1.8",
+    "to-array": "0.1.4"
   },
   "bin": {
     "repl": "./repl.js"
