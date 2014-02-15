@@ -72,16 +72,22 @@ function spawn(url){
   var opts = { browserName: browser };
   if (version) opts.version = version;
   opts.platform = platform;
+
   vm.init(opts, function(err){
     if (err) throw err;
     vm.get(url, function(err){
       if (err) throw err;
       // socket io `connection` should fire now
     });
-    io.on('connection', function(s){
-      socket = s;
-      start();
+  });
+
+  io.on('connection', function(s){
+    socket = s;
+    socket.on('disconnect', function(){
+      console.log('socket disconnected');
+      process.exit(1);
     });
+    start();
   });
 }
 
