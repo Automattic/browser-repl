@@ -6,6 +6,10 @@ socket.on('run', function(js, fn){
   try {
     // eval in the global scope (http://stackoverflow.com/a/5776496/376773)
     var rtn = (function() { return eval.apply(this, arguments); })(js);
+
+    // save the previous value as `_`. matches node's main REPL behavior
+    _ = rtn;
+
     fn(null, inspect(rtn, { colors: true }));
   } catch(e) {
     // we have to create a "flattened" version of the `e` Error object,
