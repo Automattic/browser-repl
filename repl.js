@@ -77,6 +77,14 @@ function spawn(url){
     if (err) throw err;
     vm.get(url, function(err){
       if (err) throw err;
+
+      // set up a heartbeat to keep session alive
+      setInterval(function(){
+        vm.eval('', function(err){
+          if (err) throw err;
+        });
+      }, 30000);
+
       // socket io `connection` should fire now
     });
   });
