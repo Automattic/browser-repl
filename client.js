@@ -5,7 +5,7 @@ var socket = io();
 
 // make `console` remote
 if (!global.options.k) {
-  global.console = global.console || {};
+  global.console = {};
   ['log', 'info', 'warn', 'error', 'debug'].forEach(function(m){
     console[m] = function(){
       socket.emit('console', toArray(arguments).map(inspect));
