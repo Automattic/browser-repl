@@ -11,7 +11,7 @@ if (!global.options.k) {
   each(['log', 'info', 'warn', 'error', 'debug'], function(m){
     global.console[m] = function(){
       var args = toArray(arguments);
-      socket.emit('console', m, map(args, function (a) {
+      socket.emit('console', m, map(args, function(a){
         return inspect(a, { colors: true });
       }));
     };

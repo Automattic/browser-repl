@@ -13,7 +13,7 @@
     "express": "3.4.8",
     "util-inspect": "0.1.8",
     "to-array": "0.1.4",
-    "foreach": "~2.0.4"
+    "foreach": "2.0.4"
   },
   "bin": {
     "repl": "./repl.js"
