@@ -159,6 +159,12 @@ function start(){
             // any other `err` needs to be converted to an `Error` object
             // with the given `err`s properties copied over
             var e = new Error();
+
+            // force an empty stack trace on the server-side... in the case where
+            // the client-side didn't send us a `stack` property (old IE, safari),
+            // it's confusing to see a server-side stack trace.
+            e.stack = '';
+
             for (var i in err) {
               e[i] = err[i];
             }
