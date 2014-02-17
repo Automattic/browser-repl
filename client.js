@@ -12,7 +12,7 @@ if (!global.options.k) {
     global.console[m] = function(){
       var args = toArray(arguments);
       socket.emit('console', m, map(args, function (a) {
-        return inspect(rtn, { colors: true });
+        return inspect(a, { colors: true });
       }));
     };
   });
