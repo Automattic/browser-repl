@@ -3,7 +3,7 @@
 
   CLI utility to set up a remote browser repl.
 
-  ![](https://i.cloudup.com/uUo8iSbKXRh/cf0bP8.gif)
+  ![](https://i.cloudup.com/M9JGEk9wS0.gif)
 
 ## How to use
 
