@@ -189,8 +189,8 @@ function start(){
     console.log('Global error: ', err);
   });
 
-  socket.on('console', function(args){
-    console.log.apply(console, args);
+  socket.on('console', function(method, args){
+    console[method].apply(console, args);
   });
 
   cmd.on('exit', function(){
