@@ -1,4 +1,6 @@
 var io = require('socket.io-client');
+var map = require('array-map');
+var each = require('foreach');
 var toArray = require('to-array');
 var inspect = require('util-inspect');
 var socket = io();
@@ -6,9 +8,12 @@ var socket = io();
 // make `console` remote
 if (!global.options.k) {
   global.console = {};
-  ['log', 'info', 'warn', 'error', 'debug'].forEach(function(m){
-    console[m] = function(){
-      socket.emit('console', toArray(arguments).map(inspect));
+  each(['log', 'info', 'warn', 'error', 'debug'], function(m){
+    global.console[m] = function(){
+      var args = toArray(arguments);
+      socket.emit('console', m, map(args, function (a) {
+        return inspect(rtn, { colors: true });
+      }));
     };
   });
 }

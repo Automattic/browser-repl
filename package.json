@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "",
   "dependencies": {
+    "array-map": "0.0.0",
     "debug": "0.7.4",
     "wd": "0.2.10",
     "minimist": "0.0.7",
@@ -11,7 +12,8 @@
     "socket.io-client": "LearnBoost/socket.io-client#dc2afa4",
     "express": "3.4.8",
     "util-inspect": "0.1.8",
-    "to-array": "0.1.4"
+    "to-array": "0.1.4",
+    "foreach": "~2.0.4"
   },
   "bin": {
     "repl": "./repl.js"
