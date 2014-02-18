@@ -44,6 +44,7 @@ var app = express();
 var srv = http(app);
 app.get('/', function(req, res){
   res.send([
+    '<!DOCTYPE html>',
     '<script>options = ' + JSON.stringify(argv) + ';</script>',
     '<script src="/build.js"></script>'
   ].join('\n'));
