@@ -45,5 +45,5 @@ socket.on('run', function(js, fn){
 window.onerror = function(err){
   if (!err) err = 'Unknown global error on `window`.';
   if (err.stack) err = err.stack;
-  io.emit('global err', err);
+  socket.emit('global err', err);
 };
