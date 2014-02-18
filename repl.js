@@ -191,8 +191,8 @@ function start(){
     }
   });
 
-  socket.on('global err', function(err){
-    console.log('Global error: ', err);
+  socket.on('global err', function(message, url, linenumber){
+    console.log('Global error: ', message, url, linenumber);
   });
 
   socket.on('console', function(method, args){
