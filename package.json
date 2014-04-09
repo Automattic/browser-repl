@@ -1,6 +1,6 @@
 {
   "name": "browser-repl",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "",
   "dependencies": {
     "array-map": "0.0.0",

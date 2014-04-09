@@ -1,4 +1,12 @@
 
+0.3.0 / 2014-04-08
+==================
+
+ * repl: add HTML5 doctype tag
+ * client, repl: use the correct window.onerror args
+ * client: emit on the `socket`, not `io`
+ * Readme: better gif
+
 0.2.1 / 2014-02-17
 ==================
 
