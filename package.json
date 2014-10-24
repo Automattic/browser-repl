@@ -4,7 +4,6 @@
   "description": "CLI utility to set up a remote browser repl",
   "dependencies": {
     "array-map": "0.0.0",
-    "debug": "0.7.4",
     "wd": "0.2.10",
     "minimist": "0.0.7",
     "localtunnel": "0.2.2",
