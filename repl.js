@@ -17,7 +17,7 @@ var repl = require('repl');
 var args = process.argv.slice(2);
 var argv = require('minimist')(args);
 var sio = require('socket.io');
-var lt = require('localtunnel').connect;
+var ngrok = require('ngrok').connect;
 var join = require('path').join;
 var http = require('http').Server;
 var express = require('express');
@@ -52,18 +52,20 @@ app.get('/', function(req, res){
 app.use(express.static(join(__dirname, 'static')));
 
 var io = sio(srv);
-var tunnel, socket;
+var socket;
 
 setup();
 
 function setup(){
   console.log('… setting up tunnel');
   srv.listen(function(){
-    tunnel = lt({
-      host: 'https://localtunnel.me',
-      port: srv.address().port
-    });
-    tunnel.on('url', function(url){
+    ngrok(srv.address().port, function(err, url){
+      if (err) {
+        console.error('… error setting up reverse tunnel');
+        console.error(err.stack);
+        return;
+      }
+
       console.log('… booting up \033[96m'
         + browser + '\033[39m (' + (version || 'latest')
         + ') on ' + platform);
