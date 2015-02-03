@@ -4,12 +4,12 @@ NODE ?= node
 NPM ?= npm
 BROWSERIFY ?= $(NODE) ./node_modules/.bin/browserify
 
-build: install static/build.js
+build: static/build.js
 
-install:
+node_modules: package.json
 	$(NPM) install
 
-static/build.js: client.js package.json
+static/build.js: client.js node_modules
 	mkdir -p static
 	$(BROWSERIFY) $< > $@
 
