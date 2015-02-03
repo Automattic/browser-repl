@@ -1,4 +1,10 @@
 
+0.3.2 / 2015-02-02
+==================
+
+ * repl: replace localtunnel with ngrok
+ * package: bump socket.io and add ngrok
+
 0.3.1 / 2015-02-02
 ==================
 
