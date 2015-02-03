@@ -29,6 +29,6 @@
     "prepublish": "make build"
   },
   "devDependencies": {
-    "browserify": "6.1.0"
+    "browserify": "8.1.3"
   }
 }
