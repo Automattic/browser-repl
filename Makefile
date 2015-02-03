@@ -1,9 +1,13 @@
 
 # apps
 NODE ?= node
+NPM ?= npm
 BROWSERIFY ?= $(NODE) ./node_modules/.bin/browserify
 
-build: static/build.js
+build: install static/build.js
+
+install:
+	$(NPM) install
 
 static/build.js: client.js package.json
 	mkdir -p static
@@ -12,4 +16,4 @@ static/build.js: client.js package.json
 clean:
 	rm static/build.js
 
-.PHONY: build clean
+.PHONY: install build clean
