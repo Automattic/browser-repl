@@ -4,15 +4,15 @@
   "description": "CLI utility to set up a remote browser repl",
   "dependencies": {
     "array-map": "0.0.0",
-    "wd": "0.2.10",
-    "minimist": "0.0.7",
-    "localtunnel": "0.2.2",
-    "socket.io": "1.1.0",
-    "socket.io-client": "1.1.0",
     "express": "3.4.8",
-    "util-inspect": "0.1.8",
+    "foreach": "2.0.4",
+    "minimist": "0.0.7",
+    "ngrok": "0.1.98",
+    "socket.io": "1.3.2",
+    "socket.io-client": "1.3.2",
     "to-array": "0.1.4",
-    "foreach": "2.0.4"
+    "util-inspect": "0.1.8",
+    "wd": "0.2.10"
   },
   "repository": {
     "type": "git",
