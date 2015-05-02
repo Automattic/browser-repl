@@ -28,16 +28,17 @@ var browsers = config.browsers;
 var platforms = config.platforms;
 
 // parse args
-var platform;
 if (2 == argv._.length) platform = argv._.pop();
 var str = argv._.join('');
-var parts = str.match(/([a-z]+) *(\d+)?/);
+var parts = str.match(/([a-z]+) *(\d+\.?\d+)?/);
 if (!parts) return usage();
+
+// locate browser
 var browser = browsers[str] || browsers[parts[1]];
 if (!browser) return usage();
-var version = parts[2];
-platform = platforms[platform || browser.platform];
-browser = browser.name;
+var version = parts[2] || browser.version;
+var platform = platforms[platform || browser.platform];
+
 
 // app
 var app = express();
@@ -67,7 +68,7 @@ function setup(){
       }
 
       console.log('… booting up \033[96m'
-        + browser + '\033[39m (' + (version || 'latest')
+        + browser.name + '\033[39m (' + (version || 'latest')
         + ') on ' + platform);
       spawn(url);
     });
@@ -79,11 +80,21 @@ function spawn(url){
   var user = env.SAUCE_USERNAME;
   var key = env.SAUCE_ACCESS_KEY;
   var vm = wd.remote('ondemand.saucelabs.com', 80, user, key);
-  var opts = { browserName: browser };
-  if (version) opts.version = version;
-  opts.platform = platform;
 
-  vm.init(opts, function(err){
+  var isAndroid = browser.name == "android";
+  var isiPhone = /^ip(hone|ad)$/.test(browser.name);
+
+  var opts = {
+    browserName: browser.name,
+    platform : platform,
+    version : version ? version : undefined,
+    deviceName : isAndroid ? "Android Emulator" : isiPhone ? "iPhone Simulator" : undefined,
+    'device-orientation' : isAndroid || isiPhone ? 'portrait' : undefined,
+    'record-video' : false,
+    'record-screenshots' : false,
+  };
+
+  vm.init(opts, function(err, sessionid, client){
     if (err) throw err;
     vm.get(url, function(err){
       if (err) throw err;
