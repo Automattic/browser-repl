@@ -1,38 +1,52 @@
 {
   "browsers": {
+
     "ie": { "name": "internet explorer", "platform": "win8.1" },
     "ie6": { "name": "internet explorer", "platform": "winxp" },
     "ie7": { "name": "internet explorer", "platform": "winxp" },
     "ie8": { "name": "internet explorer", "platform": "win7" },
     "ie9": { "name": "internet explorer", "platform": "win7" },
     "ie10": { "name": "internet explorer", "platform": "win8" },
+    "ie11": { "name": "internet explorer", "platform": "win8" , "version": "11" },
+
     "opera": { "name": "opera", "platform": "win7" },
-    "safari": { "name": "safari", "platform": "mac10.9" },
-    "safari5": { "name": "safari", "platform": "mac10.6" },
-    "safari6": { "name": "safari", "platform": "mac10.8" },
+    
+    "safari": { "name": "safari", "platform": "mac10.10", "version": "8" },
+    "safari5": { "name": "safari", "platform": "mac10.6", "version": "5.1" },
+    "safari6": { "name": "safari", "platform": "mac10.8", "version": "6" },
+    "safari7": { "name": "safari", "platform": "mac10.9", "version": "7" },
+    "safari8": { "name": "safari", "platform": "mac10.9", "version": "8" },
+    
     "chrome": { "name": "chrome", "platform": "win8.1" },
+    "chromedev": { "name": "chrome", "platform": "win8.1", "version": "dev" },
+
     "firefox": { "name": "firefox", "platform": "linux" },
-    "ipad": { "name": "ipad", "platform": "mac10.9" },
+    "firefoxdev": { "name": "firefox", "platform": "linux", "version": "dev" },
+
+    "ipad": { "name": "ipad", "platform": "mac10.10", "version": "8" },
     "ipad4": { "name": "ipad", "platform": "mac10.6" },
     "ipad5": { "name": "ipad", "platform": "mac10.6" },
     "ipad5.1": { "name": "ipad", "platform": "mac10.6" },
     "ipad6": { "name": "ipad", "platform": "mac10.8" },
     "ipad6.1": { "name": "ipad", "platform": "mac10.8" },
-    "iphone": { "name": "iphone", "platform": "mac10.9" },
+    "iphone": { "name": "iphone",  "platform": "mac10.10", "version": "8" },
     "iphone4": { "name": "iphone", "platform": "mac10.6" },
     "iphone5": { "name": "iphone", "platform": "mac10.6" },
     "iphone5.1": { "name": "iphone", "platform": "mac10.6" },
     "iphone6": { "name": "iphone", "platform": "mac10.8" },
     "iphone6.1": { "name": "iphone", "platform": "mac10.8" }
   },
+
   "platforms": {
     "winxp": "Windows XP",
     "win7": "Windows 7",
     "win8": "Windows 8",
     "win8.1": "Windows 8.1",
-    "mac10.6": "OSX 10.6",
-    "mac10.8": "OSX 10.8",
-    "mac10.9": "OSX 10.9",
-    "linux": "Linux"
+    "mac10.6": "OS X 10.6",
+    "mac10.8": "OS X 10.8",
+    "mac10.9": "OS X 10.9",
+    "mac10.10": "OS X 10.10",
+    "linux": "Linux",
+    "android": "Linux"
   }
 }
