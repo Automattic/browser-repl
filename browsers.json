@@ -23,7 +23,13 @@
     "iphone5": { "name": "iphone", "platform": "mac10.6" },
     "iphone5.1": { "name": "iphone", "platform": "mac10.6" },
     "iphone6": { "name": "iphone", "platform": "mac10.8" },
-    "iphone6.1": { "name": "iphone", "platform": "mac10.8" }
+    "iphone6.1": { "name": "iphone", "platform": "mac10.8" },
+
+    "android": { "name": "android", "platform": "linux", "version": "5" },
+    "android4.4": { "name": "android", "platform": "linux", "version": "4.4" },
+    "android4.2": { "name": "android", "platform": "linux", "version": "4.2" },
+    "android4.1": { "name": "android", "platform": "linux", "version": "4.1" }
+   
   },
   "platforms": {
     "winxp": "Windows XP",
