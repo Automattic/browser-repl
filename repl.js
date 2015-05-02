@@ -30,7 +30,7 @@ var platforms = config.platforms;
 // parse args
 if (2 == argv._.length) platform = argv._.pop();
 var str = argv._.join('');
-var parts = str.match(/([a-z]+) *(\d+\.?\d+)?/);
+var parts = str.match(/([a-z]+) *(\d+(\.\d+)?)?/);
 if (!parts) return usage();
 
 // locate browser
