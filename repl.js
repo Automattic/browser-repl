@@ -121,10 +121,19 @@ function usage(){
   console.error(' $ repl ie6     # ie 6');
   console.error(' $ repl chrome  # chrome latest');
   console.error('');
-  console.error('browsers: ' + Object.keys(browsers).filter(function(v){
-    return !/\d/.test(v);
-  }).join(','));
-  console.error('platforms: ' + Object.keys(platforms).join(','));
+  console.error('available browsers: ');
+
+  var browsernames = {};
+  Object.keys(browsers).map(function(k){ return browsers[k] }).forEach(function(k){ browsernames[k.name] = true; });
+
+  Object.keys(browsernames).forEach(function(name){
+      console.error(
+        ' ' + name + ':   ',
+        Object.keys(browsers).filter(function(val){ return browsers[val].name == name }).join('  ')
+      );
+  });
+
+  console.error('\navailable platforms: \n  ' + Object.keys(platforms).join('  '));
   console.error('');
   process.exit(1);
 }
@@ -132,7 +141,7 @@ function usage(){
 function start(){
   console.log('… ready!');
   var cmd = repl.start({
-    prompt: str + ' › ',
+    prompt: '\033[96m' + str + ' › \033[39m',
     eval: function(cmd, ctx, file, fn){
       socket.emit('run', cmd, function(err, data){
         if (err) {
