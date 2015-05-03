@@ -83,8 +83,9 @@ function spawn(url){
   if (version) opts.version = version;
   opts.platform = platform;
 
-  vm.init(opts, function(err){
+  vm.init(opts, function(err, m, client){
     if (err) throw err;
+    if (client) console.log('… connected to', client.browserName, client.version);
     vm.get(url, function(err){
       if (err) throw err;
 
