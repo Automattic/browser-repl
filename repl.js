@@ -96,6 +96,7 @@ function spawn(url){
 
   vm.init(opts, function(err, sessionid, client){
     if (err) throw err;
+    if (client) console.log('… connected to', client.browserName, client.version);
     vm.get(url, function(err){
       if (err) throw err;
 
@@ -132,18 +133,29 @@ function usage(){
   console.error(' $ repl ie6     # ie 6');
   console.error(' $ repl chrome  # chrome latest');
   console.error('');
-  console.error('browsers: ' + Object.keys(browsers).filter(function(v){
-    return !/\d/.test(v);
-  }).join(','));
-  console.error('platforms: ' + Object.keys(platforms).join(','));
+  console.error('available browsers: ');
+
+  var browsernames = {};
+  Object.keys(browsers).map(function(k){ return browsers[k] }).forEach(function(k){ browsernames[k.name] = true; });
+
+  Object.keys(browsernames).forEach(function(name){
+      console.error(
+        ' ' + name + ':   ',
+        Object.keys(browsers).filter(function(val){ return browsers[val].name == name }).join('  ')
+      );
+  });
+
+  console.error('\navailable platforms: \n  ' + Object.keys(platforms).join('  '));
   console.error('');
   process.exit(1);
 }
 
 function start(){
   console.log('… ready!');
+  var isAnsiReadlineOK = 'stripVTControlCharacters' in require('readline');
+
   var cmd = repl.start({
-    prompt: str + ' › ',
+    prompt: isAnsiReadlineOK ? '\u001b[96m' + str + ' › \u001b[39m' : str + ' › ',
     eval: function(cmd, ctx, file, fn){
       socket.emit('run', cmd, function(err, data){
         if (err) {
