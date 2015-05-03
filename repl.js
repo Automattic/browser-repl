@@ -66,8 +66,8 @@ function setup(){
         return;
       }
 
-      console.log('… booting up \033[96m'
-        + browser + '\033[39m (' + (version || 'latest')
+      console.log('… booting up \u001b[96m'
+        + browser + '\u001b[39m (' + (version || 'latest')
         + ') on ' + platform);
       spawn(url);
     });
@@ -140,8 +140,10 @@ function usage(){
 
 function start(){
   console.log('… ready!');
+  var isAnsiReadlineOK = 'stripVTControlCharacters' in require('readline');
+
   var cmd = repl.start({
-    prompt: '\033[96m' + str + ' › \033[39m',
+    prompt: isAnsiReadlineOK ? '\u001b[96m' + str + ' › \u001b[39m' : str + ' › ',
     eval: function(cmd, ctx, file, fn){
       socket.emit('run', cmd, function(err, data){
         if (err) {
