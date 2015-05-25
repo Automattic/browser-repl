@@ -1,4 +1,18 @@
 
+0.4.0 / 2015-05-24
+==================
+
+  * repl: add a 'connected to' log with browser version.
+  * repl: feature-detect the ansi readline bugfix.
+  * repl: verbose listing of available browsers. color prompt.
+  * browsers: update all to latest. explicit versions. fix OSX
+  * browsers: add support for Android.
+  * repl: support for android devices.
+  * package: wd to 0.3
+  * package: bump ngrok & socket.io
+  * Makefile: fix `install` rule
+  * ensure install prior to publish
+
 0.3.2 / 2015-02-02
 ==================
 
