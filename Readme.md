@@ -34,10 +34,15 @@ Sign up for a free OSS account on [SauceLabs](http://saucelabs.com).
   A global `window.onerror` hook is also set to capture errors.
   Summoning `repl` with the `-n` argument disables this.
 
+## Maintenance
+
+The `browsers.json` data maps to the supported browser matrix available at https://saucelabs.com/rest/v1/manual/options/
+
 ## Contributors
 
   - [Nathan Rajlich](https://github.com/tootallnate)
   - [Guillermo Rauch](https://github.com/guille)
+  - [Paul Irish](https://github.com/paulirish)
 
 ## License
 
