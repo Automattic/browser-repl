@@ -4,7 +4,7 @@
   "description": "CLI utility to set up a remote browser repl",
   "dependencies": {
     "array-map": "0.0.0",
-    "express": "3.4.8",
+    "express": "4.22.0",
     "foreach": "2.0.4",
     "minimist": "0.2.4",
     "ngrok": "0.1.99",
